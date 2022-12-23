@@ -1,5 +1,5 @@
-from http import HTTPStatus
 import typing as t
+from http import HTTPStatus
 
 import requests
 from bs4 import BeautifulSoup
