@@ -1,0 +1,25 @@
+version: '3'
+services:
+  puncher:
+    restart: always
+    build: 
+      context: .
+      dockerfile: Dockerfile 
+    container_name: auto-puncher
+    environment:
+      - ACCOUNT=${ACCOUNT}
+      - PASSWORD=${PASSWORD}
+      - SUBDOMAIN=${SUBDOMAIN}
+      - PUNCH_MINUTE=${PUNCH_MINUTE}
+      - PUNCH_HOUR=${PUNCH_HOUR}
+      - PUNCH_DAY_OF_WEEK=${PUNCH_DAY_OF_WEEK}
+      - TIMEZONE=${TIMEZONE}
+    working_dir: /root/app
+    command: celery -A main worker -B --loglevel=info
+    depends_on:
+      - redis
+    # stdin_open: true
+    # tty: true
+  redis:
+    image: redis:6-alpine
+    container_name: auto-puncher-db
