@@ -25,7 +25,7 @@ class FemasPuncher:
             'Cache-Control': 'max-age=0',
             'Connection': 'keep-alive',
             'Origin': 'https://femascloud.com',
-            'Referer': 'https://femascloud.com/aetherai1/accounts/login',
+            'Referer': f'https://femascloud.com/{self.subdomain}/accounts/login',  # noqa
             'Sec-Fetch-Dest': 'document',
             'Sec-Fetch-Mode': 'navigate',
             'Sec-Fetch-Site': 'same-origin',
@@ -68,7 +68,7 @@ class FemasPuncher:
             'Connection': 'keep-alive',
             'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
             'Origin': 'https://femascloud.com',
-            'Referer': 'https://femascloud.com/aetherai1/users/main?from=/Accounts/login?ext=html',  # noqa
+            'Referer': f'https://femascloud.com/{self.subdomain}/users/main?from=/Accounts/login?ext=html',  # noqa
             'Sec-Fetch-Dest': 'empty',
             'Sec-Fetch-Mode': 'cors',
             'Sec-Fetch-Site': 'same-origin',
@@ -104,7 +104,7 @@ class FemasPuncher:
             'Connection': 'keep-alive',
             'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
             'Origin': 'https://femascloud.com',
-            'Referer': 'https://femascloud.com/aetherai1/users/main?from=/Accounts/login?ext=html',  # noqa
+            'Referer': f'https://femascloud.com/{self.subdomain}/users/main?from=/Accounts/login?ext=html',  # noqa
             'Sec-Fetch-Dest': 'empty',
             'Sec-Fetch-Mode': 'cors',
             'Sec-Fetch-Site': 'same-origin',
