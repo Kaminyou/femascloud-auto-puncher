@@ -26,7 +26,7 @@ docker-compose up --build -d
 4. Everything is done!
 
 ## How to get known with `user_id`
-Leverage `FemasPuncher` to get your user_id! Please make sure you have install all the packages in the `requirements.txt` before execute the following code.
+Leverage `FemasPuncher` to get your `user_id`! Please make sure you have installed all the packages in the `requirements.txt` before execute the following code.
 ```python
 from puncher import FemasPuncher
 
