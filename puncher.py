@@ -62,42 +62,15 @@ class FemasPuncher:
         self.punch_out(user_id=self.user_id)
 
     def punch_in(self, user_id: t.Union[int, str]):
-        headers = {
-            'Accept': 'text/javascript, text/html, application/xml, text/xml, */*',  # noqa
-            'Accept-Language': 'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7,zh-CN;q=0.6,ja;q=0.5',  # noqa
-            'Connection': 'keep-alive',
-            'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            'Origin': 'https://femascloud.com',
-            'Referer': f'https://femascloud.com/{self.subdomain}/users/main?from=/Accounts/login?ext=html',  # noqa
-            'Sec-Fetch-Dest': 'empty',
-            'Sec-Fetch-Mode': 'cors',
-            'Sec-Fetch-Site': 'same-origin',
-            'X-Prototype-Version': '1.7',
-            'X-Requested-With': 'XMLHttpRequest',
-            'X-Update': 'clock_listing',
-        }
-
-        data = {
-            '_method': 'POST',
-            'data[ClockRecord][user_id]': str(user_id),
-            'data[AttRecord][user_id]': str(user_id),
-            'data[ClockRecord][shift_id]': '10',
-            'data[ClockRecord][period]': '1',
-            'data[ClockRecord][clock_type]': 'S',
-            'data[ClockRecord][latitude]': '',
-            'data[ClockRecord][longitude]': '',
-        }
-
-        r = self.session.post(
-            self.get_api("/users/clock_listing"),
-            headers=headers,
-            data=data,
-        )
-
-        if r.status_code != HTTPStatus.OK:
-            raise requests.exceptions.HTTPError(f"status {r.status_code}")
+        self._punch(user_id=user_id, action='S')
 
     def punch_out(self, user_id: t.Union[int, str]):
+        self._punch(user_id=user_id, action='E')
+
+    def _punch(self, user_id: t.Union[int, str], action: str):
+        if action not in ['E', 'S']:
+            raise ValueError(f"action should be E or S but {action} is given")
+
         headers = {
             'Accept': 'text/javascript, text/html, application/xml, text/xml, */*',  # noqa
             'Accept-Language': 'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7,zh-CN;q=0.6,ja;q=0.5',  # noqa
@@ -119,7 +92,7 @@ class FemasPuncher:
             'data[AttRecord][user_id]': str(user_id),
             'data[ClockRecord][shift_id]': '10',
             'data[ClockRecord][period]': '1',
-            'data[ClockRecord][clock_type]': 'E',
+            'data[ClockRecord][clock_type]': action,
             'data[ClockRecord][latitude]': '',
             'data[ClockRecord][longitude]': '',
         }
