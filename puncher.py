@@ -12,12 +12,12 @@ class FemasPuncher:
         self.password = password
         self.subdomain = subdomain
 
-    def get_api(self, api_name: str) -> str:
+    def _api(self, api_name: str) -> str:
         return f"https://femascloud.com/{self.subdomain}" + api_name
 
     def __enter__(self):
         self.session = requests.Session()
-        r = self.session.get(self.get_api("/accounts/login"))
+        r = self.session.get(self._api("/accounts/login"))
 
         headers = {
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',  # noqa
@@ -40,7 +40,7 @@ class FemasPuncher:
         }
 
         r = self.session.post(
-            self.get_api("/Accounts/login"),
+            self._api("/Accounts/login"),
             headers=headers,
             data=data,
         )
@@ -98,7 +98,7 @@ class FemasPuncher:
         }
 
         r = self.session.post(
-            self.get_api("/users/clock_listing"),
+            self._api("/users/clock_listing"),
             headers=headers,
             data=data,
         )
